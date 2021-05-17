@@ -23,17 +23,20 @@
 
   <dt>Edit photo</dt>
   <dd>
+    <%if @photo.owner_id = @u_id%>
     <form action="/update_photo/<%= @photo.id %>">
       <label for="browser_image">Image</label>
       <input id="browser_image" type="text" name="input_image" placeholder="Enter a URL for the image..." value="<%= @photo.image %>">
 
       <label for="browser_caption">Caption</label>
       <textarea id="browser_caption" name="input_caption" placeholder="Enter a caption for the photo..."><%= @photo.caption %></textarea>
-
-      <% if @photo.owner_id = session.fetch(":user_id")%>
-        <button>Update photo</button>
-      <% end%>
+      
+      <button>Update photo</button>
     </form>
+    
+    <% else %>
+      You can only update your own photos!
+    <%end%>
   </dd>
 
   <dt>Delete photo</dt>
